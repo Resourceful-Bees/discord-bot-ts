@@ -1,0 +1,32 @@
+{
+    "channel": "874088526419984464",
+    "message": "874088931002560522",
+    "threads": {
+        "874089041929326642": "ATM Pack Support",
+        "874090332969652245": "E6 Pack Support",
+        "874090407313670253": "Sky Bees",
+        "874091627348623370": "Breeding Support",
+        "874091557484122173": "Flowers / Pollination Support",
+        "874091319570595870": "Apiary Support",
+        "874091249727062017": "Mutation Support",
+        "874099001216106538": "General Support",
+        "874091693027237889": "(Dev) Bees",
+        "874091752548610069": "(Dev) Honey",
+        "874091801315790869": "(Dev) Traits",
+        "874093238988984320": "Other Mods Support"
+    },
+    "messages": {
+        "issues": {
+            "label": "Bugs & Feature Requests",
+            "message": {
+                "embeds": [
+                    {
+                        "title": "Bugs & Feature Requests",
+                        "description": "We do not accept bugs, issue, & feature requests on discord, please report them over to our github [here.](https://github.com/Resourceful-Bees/ResourcefulBees/issues)"
+                    }
+                ],
+                "ephemeral": true
+            }
+        }
+    }
+}

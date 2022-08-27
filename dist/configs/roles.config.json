@@ -1,0 +1,15 @@
+{
+    "roleSelections": {
+        "873346297053204561": {
+            "name": "Update Notifications",
+            "description": "Receive pings about mod updates!",
+            "emoji": "920730073080926318"
+        },
+        "870461093288480768": {
+            "name": "Community Server",
+            "description": "Receive pings about community server updates!",
+            "emoji": "920730073261301770"
+        }
+    },
+    "addAbleRolesRole": "873346594446131251"
+}
