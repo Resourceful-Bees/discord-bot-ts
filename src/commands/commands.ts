@@ -4,7 +4,7 @@ import {getCommands} from "../index";
 import {CommandType} from "../utils/commands";
 
 export default {
-    id: "commands",
+    id: "command",
     execute(command: ChatInputCommandInteraction<"cached">): void {
         if (!command.member.permissions.has(PermissionFlagsBits.Administrator)){
             command.reply({content: "You don't have perms.", ephemeral: true});
