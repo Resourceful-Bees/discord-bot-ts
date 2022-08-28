@@ -9,16 +9,17 @@ class Commands {
     commands;
     constructor() {
         this.database = new database_1.Database(config_json_1.databaseOptions);
-        this.commands = new discord_js_1.Collection(Object.keys(CommandType).map(type => [type, new discord_js_1.Collection()]));
+        this.commands = new discord_js_1.Collection(Object.values(CommandType).map(type => [type, new discord_js_1.Collection()]));
         this.database.connect()
             .then(() => {
-            for (let type of Object.keys(CommandType)) {
+            for (let type of Object.values(CommandType)) {
                 this.database.query("SELECT `category`, `key`, `value` FROM `commands` WHERE `category` = ?", [type])
                     .then(async (results) => {
-                    for (let result of results) {
-                        const category = this.commands.get(type);
-                        if (category)
+                    const category = this.commands.get(type);
+                    if (category) {
+                        for (let result of results) {
                             category.set(result.key, result.value);
+                        }
                     }
                 })
                     .catch(error => {
@@ -41,7 +42,7 @@ class Commands {
     }
     add(category, id, value) {
         this.database.query("INSERT IGNORE INTO `commands` (`category`, `key`, `value`) VALUES (?)", [[category, id, value]])
-            .then(() => {
+            .then(results => {
             this.commands.get(category)?.set(id, value);
         })
             .catch(err => {

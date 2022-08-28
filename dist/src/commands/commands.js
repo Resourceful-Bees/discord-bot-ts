@@ -4,7 +4,7 @@ const discord_js_1 = require("discord.js");
 const index_1 = require("../index");
 const commands_1 = require("../utils/commands");
 exports.default = {
-    id: "commands",
+    id: "command",
     execute(command) {
         if (!command.member.permissions.has(discord_js_1.PermissionFlagsBits.Administrator)) {
             command.reply({ content: "You don't have perms.", ephemeral: true });
