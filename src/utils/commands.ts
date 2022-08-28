@@ -9,16 +9,18 @@ export class Commands {
 
     constructor() {
         this.database = new Database(databaseOptions);
-        this.commands = new Collection<string, Collection<string, string>>(Object.keys(CommandType).map(type => [type, new Collection<string, string>()]));
+        this.commands = new Collection<string, Collection<string, string>>(Object.values(CommandType).map(type => [type, new Collection<string, string>()]));
 
         this.database.connect()
             .then(() => {
-                for (let type of Object.keys(CommandType)) {
+                for (let type of Object.values(CommandType)) {
                     this.database.query("SELECT `category`, `key`, `value` FROM `commands` WHERE `category` = ?", [type])
                         .then(async results => {
-                            for (let result of results) {
-                                const category = this.commands.get(type);
-                                if (category) category.set(result.key, result.value);
+                            const category = this.commands.get(type);
+                            if (category) {
+                                for (let result of results) {
+                                    category.set(result.key, result.value);
+                                }
                             }
                         })
                         .catch(error => {
@@ -43,7 +45,7 @@ export class Commands {
 
     add(category: CommandType, id: string, value: string) {
         this.database.query("INSERT IGNORE INTO `commands` (`category`, `key`, `value`) VALUES (?)", [[ category, id, value ]])
-            .then(() => {
+            .then(results => {
                 this.commands.get(category)?.set(id, value);
             })
             .catch(err => {
