@@ -3,7 +3,7 @@ import {Client, GatewayIntentBits} from "discord.js";
 import { Interactions } from "./utils/interactions";
 import {Commands} from "./utils/commands";
 
-const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers] });
+const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers, GatewayIntentBits.GuildMessages] });
 const interactions = new Interactions(client);
 const commands = new Commands();
 
