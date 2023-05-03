@@ -18,6 +18,7 @@ export class Interactions {
             .then(r => r.filter(file => file.endsWith(".js")))
             .then(files => files.forEach(async file => {
                 const event: DiscordEvent = (await import(`../events/${file}`)).default;
+                console.log(`Added event listener: ${event.name}`)
                 if (event.once) client.once(event.name, (...args) => event.execute(...args, client))
                 else client.on(event.name, (...args) => event.execute(...args, client))
             }))
