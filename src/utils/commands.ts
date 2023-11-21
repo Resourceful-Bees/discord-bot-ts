@@ -1,15 +1,25 @@
 import { Collection } from "discord.js";
 import { Database } from "./database";
-import { databaseOptions } from "../../configs/config.json";
-import * as process from "process";
+import { env } from "node:process";
+import { ConnectionConfig } from "mysql";
+
+
+const DB_CONFIG: ConnectionConfig = {
+    host: env.DB_HOST,
+    database: env.DB_NAME,
+    password: env.DB_PASSWORD,
+    port: parseInt(env.DB_PORT as string),
+    user: env.DB_USER
+};
 
 export class Commands {
-
     private readonly database: Database;
+
     private commands: Collection<string, Collection<string, string>>;
 
     constructor() {
-        this.database = new Database(`{host: ${process.env.DB_HOST}, database: ${process.env.DB_NAME}, password: ${process.env.DB_PASSWORD}, port: ${process.env.DB_PORT}, user: ${process.env.DB_USER}}`);
+        console.log(DB_CONFIG);
+        this.database = new Database(DB_CONFIG);
         this.commands = new Collection<string, Collection<string, string>>(Object.values(CommandType).map(type => [type, new Collection<string, string>()]));
 
         this.database.connect()
