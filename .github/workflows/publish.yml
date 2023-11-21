@@ -13,7 +13,7 @@ jobs:
           fetch-depth: 0
       - uses: mr-smithers-excellent/docker-build-push@v6
         with:
-          image: Team-Resourceful/discord-bot-ts
+          image: team-resourceful/discord-bot-ts
           registry: ghcr.io
           githubOrg: Team-Resourceful # optional
           username: ${{ secrets.GHCR_USERNAME }}
