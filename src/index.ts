@@ -12,6 +12,7 @@ const getCommands = () => commands;
 const getInteractions = () => interactions;
 
 if (!process.env.DISCORD_TOKEN) {
+    console.log(process.env.DISCORD_TOKEN)
     throw new Error("DISCORD_TOKEN environment variable missing.")
 }
 
