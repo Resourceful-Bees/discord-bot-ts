@@ -1,6 +1,7 @@
 import { Collection } from "discord.js";
 import { Database } from "./database";
 import { databaseOptions } from "../../configs/config.json";
+import * as process from "process";
 
 export class Commands {
 
@@ -8,11 +9,12 @@ export class Commands {
     private commands: Collection<string, Collection<string, string>>;
 
     constructor() {
-        this.database = new Database(databaseOptions);
+        this.database = new Database(`{host: ${process.env.DB_HOST}, database: ${process.env.DB_NAME}, password: ${process.env.DB_PASSWORD}, port: ${process.env.DB_PORT}, user: ${process.env.DB_USER}}`);
         this.commands = new Collection<string, Collection<string, string>>(Object.values(CommandType).map(type => [type, new Collection<string, string>()]));
 
         this.database.connect()
             .then(() => {
+                console.log("connected to database!")
                 for (let type of Object.values(CommandType)) {
                     this.database.query("SELECT `category`, `key`, `value` FROM `commands` WHERE `category` = ?", [type])
                         .then(async results => {

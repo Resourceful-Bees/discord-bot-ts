@@ -1,0 +1,20 @@
+name: Publish
+on:
+  workflow_dispatch:
+    branches:
+      - master
+jobs:
+  publish:
+    name: Publish
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: mr-smithers-excellent/docker-build-push@v6
+        with:
+          image: Team-Resourceful/discord-bot-ts
+          registry: ghcr.io
+          githubOrg: Team-Resourceful # optional
+          username: ${{ secrets.GHCR_USERNAME }}
+          password: ${{ secrets.GHCR_TOKEN }}
