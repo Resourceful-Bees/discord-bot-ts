@@ -9,11 +9,6 @@ export class Commands {
     private commands: Collection<string, Collection<string, string>>;
 
     constructor() {
-        console.log(process.env.DB_HOST)
-        console.log(process.env.DB_NAME)
-        console.log(process.env.DB_PASSWORD)
-        console.log(process.env.DB_PORT)
-        console.log(process.env.DB_USER)
         this.database = new Database(`{host: ${process.env.DB_HOST}, database: ${process.env.DB_NAME}, password: ${process.env.DB_PASSWORD}, port: ${process.env.DB_PORT}, user: ${process.env.DB_USER}}`);
         this.commands = new Collection<string, Collection<string, string>>(Object.values(CommandType).map(type => [type, new Collection<string, string>()]));
 

@@ -40,12 +40,12 @@ export class Interactions {
                 }
             }))
 
-        readdir("./dist/src/buttons")
+        /*readdir("./dist/src/buttons")
             .then(r => r.filter(file => file.endsWith(".js")))
             .then(files => files.forEach(async file => {
                 const button: Button = (await import(`../buttons/${file}`)).default;
                 if (button.id) buttons.set(button.id, button);
-            }))
+            }))*/
 
         readdir("./dist/src/menus")
             .then(r => r.filter(file => file.endsWith(".js")))
