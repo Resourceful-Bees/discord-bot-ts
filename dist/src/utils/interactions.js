@@ -39,7 +39,8 @@ class Interactions {
         (0, promises_1.readdir)("./dist/src/events")
             .then(r => r.filter(file => file.endsWith(".js")))
             .then(files => files.forEach(async (file) => {
-            const event = (await Promise.resolve().then(() => __importStar(require(`../events/${file}`)))).default;
+            const event = (await Promise.resolve(`${`../events/${file}`}`).then(s => __importStar(require(s)))).default;
+            console.log(`Added event listener: ${event.name}`);
             if (event.once)
                 client.once(event.name, (...args) => event.execute(...args, client));
             else
@@ -48,14 +49,14 @@ class Interactions {
         (0, promises_1.readdir)("./dist/src/commands")
             .then(r => r.filter(file => file.endsWith(".js")))
             .then(files => files.forEach(async (file) => {
-            const command = (await Promise.resolve().then(() => __importStar(require(`../commands/${file}`)))).default;
+            const command = (await Promise.resolve(`${`../commands/${file}`}`).then(s => __importStar(require(s)))).default;
             if (command.id)
                 commands.set(command.id, command);
         }));
         (0, promises_1.readdir)("./dist/src/autocomplete")
             .then(r => r.filter(file => file.endsWith(".js")))
             .then(files => files.forEach(async (file) => {
-            const command = (await Promise.resolve().then(() => __importStar(require(`../autocomplete/${file}`)))).default;
+            const command = (await Promise.resolve(`${`../autocomplete/${file}`}`).then(s => __importStar(require(s)))).default;
             if (command.id) {
                 autoCompleteCommands.set(command.id, command);
                 commands.set(command.id, command);
@@ -64,14 +65,14 @@ class Interactions {
         (0, promises_1.readdir)("./dist/src/buttons")
             .then(r => r.filter(file => file.endsWith(".js")))
             .then(files => files.forEach(async (file) => {
-            const button = (await Promise.resolve().then(() => __importStar(require(`../buttons/${file}`)))).default;
+            const button = (await Promise.resolve(`${`../buttons/${file}`}`).then(s => __importStar(require(s)))).default;
             if (button.id)
                 buttons.set(button.id, button);
         }));
         (0, promises_1.readdir)("./dist/src/menus")
             .then(r => r.filter(file => file.endsWith(".js")))
             .then(files => files.forEach(async (file) => {
-            const menu = (await Promise.resolve().then(() => __importStar(require(`../menus/${file}`)))).default;
+            const menu = (await Promise.resolve(`${`../menus/${file}`}`).then(s => __importStar(require(s)))).default;
             if (menu.id)
                 menus.set(menu.id, menu);
         }));

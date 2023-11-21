@@ -1,0 +1,1 @@
+{"version":3,"file":"crosspost.js","sourceRoot":"","sources":["../../../src/events/crosspost.ts"],"names":[],"mappings":";;AAAA,2CAAkD;AAGlD,kBAAe;IACX,IAAI,EAAE,eAAe;IACrB,OAAO,CAAC,OAAgB;QACpB,IAAI,OAAO,CAAC,OAAO,CAAC,IAAI,KAAK,wBAAW,CAAC,iBAAiB,IAAI,OAAO,CAAC,MAAM,CAAC,GAAG,EAAE;YAC9E,OAAO,CAAC,SAAS,EAAE,CAAC;SACvB;IACL,CAAC;CACY,CAAC"}

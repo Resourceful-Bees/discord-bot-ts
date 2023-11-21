@@ -21,6 +21,7 @@ client.login(process.env.DISCORD_TOKEN);
 export { getInteractions }
 export { getCommands }
 
-process.on('uncaughtException', function (err) {
-    console.error(err.stack)
-});
+/*
+process.on('uncaughtException', err => {
+    console.error(err.stack);
+});*/
