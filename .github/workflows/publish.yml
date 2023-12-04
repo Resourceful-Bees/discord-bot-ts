@@ -1,25 +1,56 @@
 name: Publish
 on:
   workflow_dispatch:
-    branches:
-      - master
+  push:
 jobs:
   publish:
+    if: contains(github.event.head_commit.message, '[Build]')
     name: Publish
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
     steps:
+      ### Checkout Repo
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+
+      ### Setup Node
       - uses: actions/setup-node@v4
         with:
           node-version: 18
-      - run: npm install
-      - run: npm run build
-      - uses: mr-smithers-excellent/docker-build-push@v6
+
+      ### Install Dependencies and Build
+      - run: npm install && npm run build
+
+      ### Login to GHCR
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
         with:
-          image: team-resourceful/discord-bot-ts
           registry: ghcr.io
-          githubOrg: Team-Resourceful # optional
-          username: ${{ secrets.GHCR_USERNAME }}
-          password: ${{ secrets.GHCR_TOKEN }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      ### Set Build Version
+      - name: Set Build Version
+        id: build-version
+        run:
+          echo "BUILD_VERSION=`date +%y%j%H%M`" >> "$GITHUB_OUTPUT"
+
+      ### Extract Docker Metadata
+      - name: Extract Docker Metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ghcr.io/${{ github.repository }}
+          tags: |
+            ${{ steps.build-version.outputs.BUILD_VERSION }}
+            latest
+
+      ### Build and Push Package
+      - name: Build and Push
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
